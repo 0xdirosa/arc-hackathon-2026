@@ -1,0 +1,6 @@
+{
+  "name": "Prediction Market Intelligence",
+  "description": "An elegant and minimalist intelligence portal for tracking, analyzing, and forecasting prediction markets.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

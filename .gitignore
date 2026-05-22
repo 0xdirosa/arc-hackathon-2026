@@ -2,3 +2,5 @@ node_modules/
 dist/
 .env
 contracts/out/
+frontend/.next/
+frontend/node_modules/
