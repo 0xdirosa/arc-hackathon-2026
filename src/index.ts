@@ -17,7 +17,12 @@ const tracker = new PerformanceTracker();
 function saveState(extra?: Record<string, any>) {
   try {
     const dataFile = path.resolve(__dirname, "..", "dashboard", "data.json");
-    const data = { trades: tracker.getAllTrades(), stats: tracker.getStats(), markets: [], news: [], decisions: [], ...extra };
+    const stats = tracker.getStats();
+    const existing = fs.existsSync(dataFile) ? JSON.parse(fs.readFileSync(dataFile, "utf-8")) : {};
+    const history = existing.history || [];
+    history.push({ timestamp: new Date().toISOString(), bankroll: stats.bankroll, pnl: stats.pnl, totalTrades: stats.totalTrades });
+    if (history.length > 100) history.splice(0, history.length - 100);
+    const data = { trades: tracker.getAllTrades(), stats, history, markets: [], news: [], decisions: [], ...extra };
     fs.mkdirSync(path.dirname(dataFile), { recursive: true });
     fs.writeFileSync(dataFile, JSON.stringify(data, null, 2));
   } catch {}

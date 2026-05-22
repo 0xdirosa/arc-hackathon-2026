@@ -64,6 +64,7 @@ app.get("/api/stats", async (_req, res) => {
       portfolio: data.stats || { totalTrades: 0, wins: 0, losses: 0, pnl: 0, bankroll: 1000 },
       markets: data.markets || [],
       decisions: data.decisions || [],
+      history: data.history || [],
       contract: CONTRACT,
       agent: AGENT,
       model: process.env.LLM_MODEL || "openai/gpt-4o",

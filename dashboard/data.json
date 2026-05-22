@@ -132,11 +132,11 @@
     }
   ],
   "stats": {
-    "totalTrades": 0,
+    "totalTrades": 10,
     "wins": 0,
     "losses": 0,
-    "pnl": 0,
-    "bankroll": 1000,
+    "pnl": -384.6,
+    "bankroll": 615.4,
     "winRate": 0
   },
   "markets": [
@@ -160,6 +160,68 @@
       "kellyFraction": 0.077,
       "amount": "76923076",
       "reasoning": "Test reasoning"
+    }
+  ],
+  "history": [
+    {
+      "timestamp": "2026-05-22T17:38:16.651601",
+      "bankroll": 961.54,
+      "pnl": -38.460000000000036,
+      "totalTrades": 1
+    },
+    {
+      "timestamp": "2026-05-22T17:39:16.651601",
+      "bankroll": 923.08,
+      "pnl": -76.91999999999996,
+      "totalTrades": 2
+    },
+    {
+      "timestamp": "2026-05-22T17:40:16.651601",
+      "bankroll": 884.62,
+      "pnl": -115.38,
+      "totalTrades": 3
+    },
+    {
+      "timestamp": "2026-05-22T17:41:16.651601",
+      "bankroll": 846.16,
+      "pnl": -153.84000000000003,
+      "totalTrades": 4
+    },
+    {
+      "timestamp": "2026-05-22T17:42:16.651601",
+      "bankroll": 807.7,
+      "pnl": -192.29999999999995,
+      "totalTrades": 5
+    },
+    {
+      "timestamp": "2026-05-22T17:43:16.651601",
+      "bankroll": 769.24,
+      "pnl": -230.76,
+      "totalTrades": 6
+    },
+    {
+      "timestamp": "2026-05-22T17:44:16.651601",
+      "bankroll": 730.78,
+      "pnl": -269.22,
+      "totalTrades": 7
+    },
+    {
+      "timestamp": "2026-05-22T17:45:16.651601",
+      "bankroll": 692.3199999999999,
+      "pnl": -307.68000000000006,
+      "totalTrades": 8
+    },
+    {
+      "timestamp": "2026-05-22T17:46:16.651601",
+      "bankroll": 653.86,
+      "pnl": -346.14,
+      "totalTrades": 9
+    },
+    {
+      "timestamp": "2026-05-22T17:47:16.651601",
+      "bankroll": 615.4,
+      "pnl": -384.6,
+      "totalTrades": 10
     }
   ]
 }
