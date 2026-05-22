@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prediction Market Trader — Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0f; color: #e0e0e0; padding: 20px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 { font-size: 24px; margin-bottom: 4px; color: #fff; }
+  .subtitle { color: #888; font-size: 14px; margin-bottom: 24px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .card { background: #14141f; border: 1px solid #2a2a3a; border-radius: 12px; padding: 20px; }
+  .card .label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .card .value { font-size: 28px; font-weight: 600; color: #fff; }
+  .card .value.positive { color: #4ade80; }
+  .card .value.negative { color: #f87171; }
+  .card .sub { font-size: 12px; color: #666; margin-top: 4px; }
+  .section-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; margin-top: 24px; color: #ccc; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 8px 12px; background: #1a1a2a; color: #888; font-weight: 500; border-bottom: 1px solid #2a2a3a; }
+  td { padding: 8px 12px; border-bottom: 1px solid #1a1a2a; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 500; }
+  .badge.buy { background: #065f46; color: #6ee7b7; }
+  .badge.skip { background: #1e293b; color: #94a3b8; }
+  .badge.win { background: #065f46; color: #6ee7b7; }
+  .badge.loss { background: #7f1d1d; color: #fca5a5; }
+  .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+  .status-dot.live { background: #4ade80; animation: pulse 2s infinite; }
+  .status-dot.off { background: #f87171; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .address { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; color: #666; word-break: break-all; }
+  .flex { display: flex; align-items: center; gap: 8px; }
+  .flex-between { display: flex; justify-content: space-between; align-items: center; }
+  .last-updated { text-align: center; color: #555; font-size: 12px; margin-top: 24px; }
+  .market-row { display: flex; align-items: center; gap: 12px; padding: 6px 0; }
+  .market-row .name { flex: 1; }
+  .market-row .odds { width: 80px; text-align: center; }
+  .market-row .edge { width: 60px; text-align: center; }
+  .market-row .action { width: 70px; text-align: center; }
+  .reasoning-text { color: #888; font-size: 12px; font-style: italic; max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .model-badge { font-size: 11px; color: #60a5fa; background: #1e3a5f; padding: 2px 8px; border-radius: 4px; }
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr 1fr; }
+    .card .value { font-size: 22px; }
+    .market-row { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="flex-between" style="align-items: flex-start;">
+    <div>
+      <h1>Prediction Market Trader</h1>
+      <div class="subtitle"><span id="status-dot" class="status-dot off"></span><span id="status-text">Loading...</span></div>
+    </div>
+    <div style="text-align: right; font-size: 12px;">
+      <div class="model-badge" id="model-badge">GPT-4o</div>
+      <div class="address" id="contract-addr" style="margin-top: 4px;">—</div>
+    </div>
+  </div>
+
+  <div class="grid" id="stats-grid">
+    <div class="card"><div class="label">Bankroll</div><div class="value" id="bankroll">—</div><div class="sub">USDC</div></div>
+    <div class="card"><div class="label">Shares (Outcome A)</div><div class="value" id="sharesA">—</div><div class="sub" id="pool-size">Pool: —</div></div>
+    <div class="card"><div class="label">Market Price A</div><div class="value" id="priceA">—</div><div class="sub" id="priceB">Price B: —</div></div>
+    <div class="card"><div class="label">PnL</div><div class="value" id="pnl">—</div><div class="sub" id="winrate">Win Rate: —</div></div>
+    <div class="card"><div class="label">Executed Trades</div><div class="value" id="trades">—</div><div class="sub" id="wins-losses">Wins: — Losses: —</div></div>
+    <div class="card"><div class="label">Market Status</div><div class="value" id="market-status" style="font-size: 20px;">—</div><div class="sub" id="question">—</div></div>
+  </div>
+
+  <div class="section-title">Markets — Agent Analysis</div>
+  <div id="markets-list">
+    <table>
+      <thead><tr><th>Market</th><th>Outcome A</th><th>Outcome B</th><th>Odds A</th><th>Odds B</th><th>Decision</th><th>Edge</th><th>Reasoning</th></tr></thead>
+      <tbody id="markets-body"><tr><td colspan="8" style="text-align:center;color:#555;">Waiting for agent analysis...</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="section-title">Trade History</div>
+  <table>
+    <thead><tr><th>Market</th><th>Action</th><th>Outcome</th><th>Amount</th><th>Prob</th><th>Kelly</th><th>Result</th><th>Time</th></tr></thead>
+    <tbody id="trade-history"><tr><td colspan="8" style="text-align:center;color:#555;">No trades yet</td></tr></tbody>
+  </table>
+
+  <div class="last-updated">Last updated: <span id="last-updated">—</span></div>
+</div>
+
+<script>
+const API = window.location.origin;
+
+function fmt(val, d) { return Number(val).toLocaleString(undefined, { minimumFractionDigits: d||2, maximumFractionDigits: d||2 }); }
+function pct(val) { return (val * 100).toFixed(1) + '%'; }
+function addr(a) { return a ? a.slice(0,6)+'...'+a.slice(-4) : '—'; }
+
+function update() {
+  Promise.all([
+    fetch(API+'/api/stats').then(r=>r.json()),
+    fetch(API+'/api/trades').then(r=>r.json()),
+  ]).then(([stats, td]) => {
+    const o = stats.onchain || {};
+    const p = stats.portfolio || {};
+    const agent = stats.agent || {};
+    const loop = stats.loop || {};
+
+    document.getElementById('status-dot').className = 'status-dot live';
+    document.getElementById('status-text').textContent = 'LIVE — Arc Testnet';
+    document.getElementById('contract-addr').textContent = addr(stats.contract) + ' / Agent ' + addr(stats.agent);
+    document.getElementById('model-badge').textContent = stats.model || 'GPT-4o';
+
+    document.getElementById('bankroll').textContent = '$' + fmt(p.bankroll || 1000);
+    document.getElementById('sharesA').textContent = fmt(o.sharesA);
+    document.getElementById('pool-size').textContent = 'Pool: ' + fmt(o.poolSize) + ' USDC';
+    document.getElementById('priceA').textContent = pct(o.priceA || 0);
+    document.getElementById('priceB').textContent = 'Price B: ' + pct(o.priceB || 0);
+
+    const pnl = Number(p.pnl || 0);
+    const pnlEl = document.getElementById('pnl');
+    pnlEl.textContent = (pnl >= 0 ? '+' : '') + '$' + fmt(Math.abs(pnl));
+    pnlEl.className = 'value ' + (pnl >= 0 ? 'positive' : 'negative');
+    const wr = Number(p.winRate || 0);
+    document.getElementById('winrate').textContent = 'Win Rate: ' + (wr * 100).toFixed(1) + '%';
+    document.getElementById('trades').textContent = p.totalTrades || 0;
+    document.getElementById('wins-losses').textContent = 'Wins: ' + (p.wins||0) + ' Losses: ' + (p.losses||0);
+
+    const se = document.getElementById('market-status');
+    if (o.resolved) { se.textContent = 'Resolved'; se.style.color = '#fbbf24'; }
+    else if (o.poolSize > 0) { se.textContent = 'Active'; se.style.color = '#4ade80'; }
+    else { se.textContent = 'Open'; se.style.color = '#60a5fa'; }
+    document.getElementById('question').textContent = 'BTC >= $100k by July?';
+
+    // Markets table
+    const markets = stats.markets || [];
+    const decisions = stats.decisions || [];
+    const mb = document.getElementById('markets-body');
+    if (markets.length === 0) {
+      mb.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#555;">Waiting...</td></tr>';
+    } else {
+      mb.innerHTML = markets.map(m => {
+        const dec = decisions.find(d => d.marketId === m.marketId);
+        const action = dec ? dec.action : '—';
+        const edge = dec ? ((dec.probability - (dec.outcome === 'A' ? m.oddsA : m.oddsB)) * 100).toFixed(1) + '%' : '—';
+        const reasoning = dec ? dec.reasoning : '—';
+        return `<tr>
+          <td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${m.title}">${m.title}</td>
+          <td>${m.outcomeA}</td>
+          <td>${m.outcomeB}</td>
+          <td>${pct(m.oddsA)}</td>
+          <td>${pct(m.oddsB)}</td>
+          <td><span class="badge ${action === 'BUY' ? 'buy' : 'skip'}">${action}</span></td>
+          <td>${edge}</td>
+          <td class="reasoning-text" title="${reasoning}">${reasoning}</td>
+        </tr>`;
+      }).join('');
+    }
+
+    // Trades table
+    const trades = td.trades || [];
+    const tt = document.getElementById('trade-history');
+    if (trades.length === 0) {
+      tt.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#555;">No trades yet</td></tr>';
+    } else {
+      tt.innerHTML = trades.map(t => {
+        const won = t.result === 'WON', loss = t.result === 'LOST';
+        return `<tr>
+          <td class="address">${t.marketId || '—'}</td>
+          <td><span class="badge ${t.action === 'BUY' ? 'buy' : 'skip'}">${t.action || '—'}</span></td>
+          <td>${t.outcome || '—'}</td>
+          <td>$${fmt(parseInt(t.amount||'0')/1e6)}</td>
+          <td>${pct(t.probability||0)}</td>
+          <td>${pct(t.kellyFraction||0)}</td>
+          <td>${won ? '<span class="badge win">WIN</span>' : loss ? '<span class="badge loss">LOSS</span>' : '<span style="color:#888">—</span>'}</td>
+          <td style="color:#555;font-size:11px;">${t.timestamp ? new Date(t.timestamp).toLocaleTimeString() : '—'}</td>
+        </tr>`;
+      }).join('');
+    }
+
+    document.getElementById('last-updated').textContent = new Date().toLocaleString();
+  }).catch(err => {
+    document.getElementById('status-text').textContent = 'Error: ' + err.message;
+  });
+}
+
+update();
+setInterval(update, 5000);
+</script>
+</body>
+</html>

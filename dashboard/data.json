@@ -1,0 +1,165 @@
+{
+  "trades": [
+    {
+      "marketId": "btc-100k-july",
+      "outcome": "A",
+      "amount": "63076923",
+      "probability": 0.432,
+      "marketOdds": 0.35,
+      "timestamp": 1779469864947,
+      "result": "PENDING",
+      "pnl": "0"
+    },
+    {
+      "marketId": "btc-100k-july",
+      "outcome": "A",
+      "amount": "63076923",
+      "probability": 0.432,
+      "marketOdds": 0.35,
+      "timestamp": 1779469934380,
+      "result": "PENDING",
+      "pnl": "0"
+    },
+    {
+      "marketId": "btc-100k-july",
+      "outcome": "A",
+      "amount": "63076923",
+      "probability": 0.432,
+      "marketOdds": 0.35,
+      "timestamp": 1779470003557,
+      "result": "PENDING",
+      "pnl": "0"
+    },
+    {
+      "marketId": "btc-100k-july",
+      "outcome": "A",
+      "amount": "63076923",
+      "probability": 0.432,
+      "marketOdds": 0.35,
+      "timestamp": 1779470072842,
+      "result": "PENDING",
+      "pnl": "0"
+    },
+    {
+      "marketId": "btc-100k-july",
+      "outcome": "A",
+      "amount": "63076923",
+      "probability": 0.432,
+      "marketOdds": 0.35,
+      "timestamp": 1779470141868,
+      "result": "PENDING",
+      "pnl": "0"
+    },
+    {
+      "marketId": "btc-100k-july",
+      "outcome": "A",
+      "amount": "63076923",
+      "probability": 0.432,
+      "marketOdds": 0.35,
+      "timestamp": 1779470210978,
+      "result": "PENDING",
+      "pnl": "0"
+    },
+    {
+      "marketId": "btc-100k-july",
+      "outcome": "A",
+      "amount": "63076923",
+      "probability": 0.432,
+      "marketOdds": 0.35,
+      "timestamp": 1779470277008,
+      "result": "PENDING",
+      "pnl": "0"
+    },
+    {
+      "marketId": "btc-100k-july",
+      "outcome": "A",
+      "amount": "63076923",
+      "probability": 0.432,
+      "marketOdds": 0.35,
+      "timestamp": 1779470347159,
+      "result": "PENDING",
+      "pnl": "0"
+    },
+    {
+      "marketId": "btc-100k-july",
+      "outcome": "A",
+      "amount": "63076923",
+      "probability": 0.432,
+      "marketOdds": 0.35,
+      "timestamp": 1779470416817,
+      "result": "PENDING",
+      "pnl": "0"
+    },
+    {
+      "marketId": "btc-100k-july",
+      "outcome": "A",
+      "amount": "63076923",
+      "probability": 0.432,
+      "marketOdds": 0.35,
+      "timestamp": 1779470486372,
+      "result": "PENDING",
+      "pnl": "0"
+    },
+    {
+      "marketId": "btc-100k-july",
+      "outcome": "A",
+      "amount": "63076923",
+      "probability": 0.432,
+      "marketOdds": 0.35,
+      "timestamp": 1779470555616,
+      "result": "PENDING",
+      "pnl": "0"
+    },
+    {
+      "marketId": "btc-100k-july",
+      "outcome": "A",
+      "amount": "63076923",
+      "probability": 0.432,
+      "marketOdds": 0.35,
+      "timestamp": 1779470620926,
+      "result": "PENDING",
+      "pnl": "0"
+    },
+    {
+      "marketId": "btc-100k-july",
+      "outcome": "A",
+      "amount": "63076923",
+      "probability": 0.432,
+      "marketOdds": 0.35,
+      "timestamp": 1779470690141,
+      "result": "PENDING",
+      "pnl": "0"
+    }
+  ],
+  "stats": {
+    "totalTrades": 0,
+    "wins": 0,
+    "losses": 0,
+    "pnl": 0,
+    "bankroll": 1000,
+    "winRate": 0
+  },
+  "markets": [
+    {
+      "marketId": "btc-100k-july",
+      "title": "Bitcoin above 100k by July 2026",
+      "outcomeA": "Yes >=100k",
+      "outcomeB": "No <100k",
+      "oddsA": 0.35,
+      "oddsB": 0.65,
+      "liquidity": "45000"
+    }
+  ],
+  "decisions": [
+    {
+      "marketId": "btc-100k-july",
+      "action": "BUY",
+      "outcome": "A",
+      "confidence": 0.75,
+      "probability": 0.45,
+      "kellyFraction": 0.077,
+      "amount": "76923076",
+      "reasoning": "Test reasoning"
+    }
+  ]
+}

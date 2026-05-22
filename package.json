@@ -1,0 +1,30 @@
+{
+  "name": "prediction-market-trader",
+  "version": "1.0.0",
+  "description": "Prediction Market Trader Intelligence Agent — Agora Hackathon Canteen × Circle",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "dashboard": "tsx dashboard/server.ts",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@circle-fin/cli": "^0.0.3",
+    "@circle-fin/developer-controlled-wallets": "^10.3.1",
+    "@types/node": "^25.9.1",
+    "dotenv": "^17.4.2",
+    "ethers": "^6.16.0",
+    "express": "^5.2.1",
+    "openai": "^6.39.0",
+    "tsx": "^4.22.3",
+    "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6"
+  }
+}
